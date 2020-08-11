@@ -1,22 +1,22 @@
 import React, { Component } from 'react'
 
 class CountComponentClass extends Component {
-  constructor() {
-    super();
-    this.state = { count: 0 };
-  }
-
-  increment() {
-    // this.setState((state) => ({count: 2}))
+  constructor(props) {
+    super(props);
+    this.state = { counter: 0 };
   }
 
   render () {
     return(
-      <div>
-        <h1> Class counter component { this.state.count }</h1>
-        <input type="button" value="increment" onClick={this.increment} />
+      <div data-test="count-component-class">
+        <h1 data-test="counter-display-class">Here goes to counter {this.state.counter}</h1>
+        <input
+          data-test="increment-button-class"
+          type="button"
+          value="increase"
+          onClick={() => this.setState({ counter: this.state.counter + 1 })}
+        />
       </div>
-
     );
   }
 }
