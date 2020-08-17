@@ -39,5 +39,4 @@ test('clicking button increments counter display', () => {
   //find counterDisplay
   counterDisplay = findByTestAttr(wrapper, 'counter-display-function');
   expect(counterDisplay.text()).toContain(`Here goes to counter: 1`);
-
 })

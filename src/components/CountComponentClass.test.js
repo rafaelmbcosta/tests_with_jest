@@ -41,3 +41,43 @@ test('clicking button increments counter display', () => {
   const counterDisplay = findByTestAttr(wrapper, 'counter-display-class');
   expect(counterDisplay.text()).toContain(`Here goes to counter ${counter + 1}`);
 })
+
+test('presence of decrement button', () => {
+  const wrapper = setupClass();
+  const button = findByTestAttr(wrapper, 'decrement-button-class');
+  expect(button.length).toBe(1);
+})
+
+test('click button should decrease value', () => {
+  const counter = 4;
+  const wrapper = setupClass(null,  { counter: counter });
+  const button = findByTestAttr(wrapper, 'decrement-button-class');
+  button.simulate('click');
+  const countDisplay = findByTestAttr(wrapper, 'counter-display-class' )
+  expect(countDisplay.text()).toContain(`Here goes to counter ${counter - 1}`);
+})
+
+test('presence of the alert', () => {
+  const wrapper = setupClass();
+  const alert = findByTestAttr(wrapper, 'alert-text-class');
+  expect(alert.length).toBe(1);
+})
+
+test('cannot be lower than 0', () => {
+  const counter = 0;
+  const wrapper = setupClass(null, { counter: counter, error: false})
+  const button = findByTestAttr(wrapper, 'decrement-button-class')
+  button.simulate('click');
+  const alert = findByTestAttr(wrapper, 'alert-text-class');
+  expect(alert.text()).toContain('Cannot be lower than 0');
+})
+
+test('when clicking increase, error message disapears', () => {
+  const wrapper = setupClass(null, {counter: -1, error: true});
+  const button = findByTestAttr(wrapper, 'increment-button-class');
+  let alert = findByTestAttr(wrapper, 'alert-text-class');
+  expect(alert.text()).toContain('Cannot be lower than 0');
+  button.simulate('click');
+  alert = findByTestAttr(wrapper, 'alert-text-class');
+  expect(alert.text()).toContain("");
+})
